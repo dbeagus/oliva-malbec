@@ -23,7 +23,7 @@ class LoginTestCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_login_success(self):
-        resp = self.client.post("/api/login", json = {
+        resp = self.client.post("/auth/login", json = {
             "username" : "testuser",
             "password" : "testuserpassword"
         })
@@ -31,7 +31,7 @@ class LoginTestCase(unittest.TestCase):
         self.assertIn("Login sucessful", resp.get_json()["message"])
     
     def test_login_failure(self):
-        resp = self.client.post("/api/login", json = {
+        resp = self.client.post("/auth/login", json = {
             "username" : "testuser",
             "password" : "testuserpasswordfail"
         })
