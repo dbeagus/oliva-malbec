@@ -21,7 +21,9 @@ def create_app():
     migrate.init_app(app, db)
 
     from app.resources.home import home_bp
+    from app.resources.login import login_bp
     app.register_blueprint(home_bp, url_prefix="/home")
+    app.register_blueprint(login_bp, url_prefix="/api")
 
     @app.shell_context_processor
     def ctx():
