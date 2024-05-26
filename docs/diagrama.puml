@@ -1,0 +1,55 @@
+@startuml
+
+package "Models" {
+    class User {
+        +Integer id
+        +String username
+        +String email
+        +String password_hash
+        +Boolean is_admin
+        --
+        +set_password(password: String)
+        +check_password(password: String) : Boolean
+    }
+
+    class Student {
+        +Integer id
+        +String first_name
+        +String last_name
+        +String dni
+        +String phone
+        +String address
+        +Date birthdate
+        --
+    }
+
+    class Admin {
+        +Integer id
+        --
+        +register_student(username: String, email: String, first_name: String, last_name: String, dni: String, phone: String, address: String, password: String) : Student
+        +delete_student(student_id: Integer) : Student
+        +assign_course_to_student(student_id: Integer, course_id: Integer) : (Student, Course)
+        +load_grade(student_id: Integer, course_id: Integer, grade_value: Float) : Grade
+    }
+
+    class Course {
+        +Integer id
+        +String name
+    }
+
+    class Grade {
+        +Integer id
+        +Float grade
+        +Integer student_id
+        +Integer course_id
+    }
+
+    User <|-- Student
+    User <|-- Admin
+
+    Student --* Course : takes
+    Grade --> Student : belongs to
+    Grade --> Course : belongs to
+}
+
+@enduml
