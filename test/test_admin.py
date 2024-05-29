@@ -16,7 +16,7 @@ class TestAdminModel(unittest.TestCase):
         #Test Admin
         self.admin = Admin(username = "admin", email = "admin@test.com")
         self.admin.set_password("adminpassword")
-        db.session.add()
+        db.session.add(self.admin)
         db.session.commit()
 
     def tearDown(self):
@@ -68,7 +68,7 @@ class TestAdminModel(unittest.TestCase):
         db.session.commit()
 
         self.admin.assign_course_to_student(student.id, course.id)
-        self.assertIn(course, student.course)
+        self.assertIn(course, student.courses)
 
     def test_load_grades(self):
         student = self.admin.register_student(
